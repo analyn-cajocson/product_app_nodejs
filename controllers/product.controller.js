@@ -19,3 +19,30 @@ exports.create = function (req, res) {
     res.send('Product Created Successfully');
   });
 };
+
+exports.show = function (req, res) {
+  Product.findById(req.params.id, function (err, product) {
+    if (err) throw (err);
+    res.send(product);
+  });
+};
+
+exports.update = function (req, res) {
+  Product.findByIdAndUpdate(req.params.id, {$set: req.body}, function (err, product){
+    if (err) throw (err);
+    res.send(product);
+  });
+};
+
+exports.delete = function (req, res) {
+  Product.findByIdAndRemove(req.params.id, function (err){
+    if (err) throw (err);
+    res.send('Deleted Successfully');
+  });
+};
+
+exports.index = function (req,res) {
+  Product.find({}, function (err, products) {
+    res.send(products);
+  });
+};
